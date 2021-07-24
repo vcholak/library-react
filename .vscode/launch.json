@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "runtimeExecutable": "/snap/bin/chromium",
+      "request": "launch",
+      "name": "react: chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "react: firefox",
+      "firefoxExecutable": "/home/vcholak/apps/firefox/firefox",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "pathMappings": [
+        {
+          "url": "http://localhost:3000/src/views",
+          "path": "${workspaceFolder}/src/views"
+        },
+        {
+          "url": "webpack:///src/",
+          "path": "${webRoot}"
+        }
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**"
+      ]
+    }
+  ]
+}
