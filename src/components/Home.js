@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Home = () => {
 
@@ -9,63 +10,33 @@ const Home = () => {
   const [genres, setGenres] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/books", {method: 'HEAD'})
-      .then(res => {
-        if (!res.ok) {
-          setBooks(res.statusText);
-        } else {
-          setBooks(res.headers.get('X-Result-Count'));
-        }
-      })
-      .catch(err => setBooks(err));
+    axios.head("http://localhost:8080/api/books")
+      .then(res => setBooks(res.headers['x-result-count']))
+      .catch(err => setBooks(err.message));
   },[]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/authors", {method: 'HEAD'})
-      .then(res => {
-        if (!res.ok) {
-          setBooks(res.statusText);
-        } else {
-          setAutors(res.headers.get('X-Result-Count'));
-        }
-      })
-      .catch(err => setAutors(err));
+    axios.head("http://localhost:8080/api/authors")
+      .then(res => setAutors(res.headers['x-result-count']))
+      .catch(err => setAutors(err.message));
   },[]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/genres", {method: 'HEAD'})
-      .then(res => {
-        if (!res.ok) {
-          setBooks(res.statusText);
-        } else {
-          setGenres(res.headers.get('X-Result-Count'));
-        }
-      })
-      .catch(err => setGenres(err));
+    axios.head("http://localhost:8080/api/genres")
+      .then(res => setGenres(res.headers['x-result-count']))
+      .catch(err => setGenres(err.message));
   },[]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/copies", {method: 'HEAD'})
-      .then(res => {
-        if (!res.ok) {
-          setBooks(res.statusText);
-        } else {
-          setCopies(res.headers.get('X-Result-Count'));
-        }
-      })
-      .catch(err => setCopies(err));
+    axios.head("http://localhost:8080/api/copies")
+      .then(res => setCopies(res.headers['x-result-count']))
+      .catch(err => setCopies(err.message));
   },[]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/copies/available", {method: 'HEAD'})
-      .then(res => {
-        if (!res.ok) {
-          setBooks(res.statusText);
-        } else {
-          setAvailableCopies(res.headers.get('X-Result-Count'));
-        }
-      })
-      .catch(err => setAvailableCopies(err));
+    axios.head("http://localhost:8080/api/copies/available")
+      .then(res => setAvailableCopies(res.headers['x-result-count']))
+      .catch(err => setAvailableCopies(err.message));
   },[]);
 
   const Loading = (

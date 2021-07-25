@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import routes from '../routs';
+import routes from '../routes';
 
 const Content = () => (
   <div className="col-sm-10">
