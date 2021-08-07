@@ -1,4 +1,5 @@
 import useFetch from 'use-http';
+import { Link } from 'react-router-dom';
 
 const Authors = () => {
 
@@ -9,11 +10,16 @@ const Authors = () => {
 
   return (
     <>
+      <h1>Author List</h1>
       {error && 'Error while fetching all authors!'}
       {loading && 'Loading...'}
+      <ul>
       {data.map(author => (
-        <div key={author.id}>{author.name}</div>
+        <li key={author.id}>
+          <Link to={`/authors/${author.id}`}>{author.family_name}, {author.first_name}</Link>
+        </li>
       ))}
+      </ul>
     </>
   );
 }
