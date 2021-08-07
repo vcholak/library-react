@@ -1,6 +1,12 @@
 import Home from "./components/Home";
 import Books from "./components/Books";
 import Authors from "./components/Authors";
+import Genres from "./components/Genres";
+import GenreForm from "./components/GenreForm";
+import GenreDetails from "./components/GenreDetails";
+import AuthorForm from "./components/AuthorForm";
+import BookForm from "./components/BookForm";
+import BookInstanceForm from "./components/BookInstanceForm";
 
 const routes = [
   {
@@ -25,7 +31,7 @@ const routes = [
     path: "/genres",
     exact: true,
     text: 'All genres',
-    component: Authors
+    component: Genres
   },
   {
     path: "/bookinstances",
@@ -36,22 +42,27 @@ const routes = [
   {
     path: "/authors/create",
     text: 'Create new author',
-    component: Authors
+    component: AuthorForm
   },
   {
     path: "/genres/create",
     text: 'Create new genre',
-    component: Authors
+    component: GenreForm
   },
   {
     path: "/books/create",
     text: 'Create new book',
-    component: Authors
+    component: BookForm
   },
   {
     path: "/bookinstances/create",
     text: 'Create new book instance (copy)',
-    component: Authors
+    component: BookInstanceForm
+  },
+  {
+    path: "/genres/:id",
+    exact: true,
+    component: GenreDetails
   }
 ];
 

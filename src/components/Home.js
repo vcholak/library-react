@@ -53,7 +53,7 @@ const Home = () => {
         <li><strong>Copies:</strong> { copies }</li>
         <li><strong>Copies available:</strong> { availableCopies }</li>
         <li><strong>Authors:</strong> { authors }</li>
-        <li><strong>Genres:</strong><span>{ genres }</span></li>
+        <li><strong>Genres:</strong><span> { genres }</span></li>
       </ul>
   </div>
   );
