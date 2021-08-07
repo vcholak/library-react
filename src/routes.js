@@ -7,6 +7,7 @@ import GenreDetails from "./components/GenreDetails";
 import AuthorForm from "./components/AuthorForm";
 import BookForm from "./components/BookForm";
 import BookInstanceForm from "./components/BookInstanceForm";
+import AuthorDetails from "./components/AuthorDetails";
 
 const routes = [
   {
@@ -63,7 +64,12 @@ const routes = [
     path: "/genres/:id",
     exact: true,
     component: GenreDetails
-  }
+  },
+  {
+    path: "/authors/:id",
+    exact: true,
+    component: AuthorDetails
+  },
 ];
 
 export default routes;

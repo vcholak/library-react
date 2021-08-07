@@ -1,5 +1,6 @@
 import useFetch from 'use-http';
 import { Link } from 'react-router-dom';
+import { formatDate } from './utils';
 
 const Authors = () => {
 
@@ -17,6 +18,7 @@ const Authors = () => {
       {data.map(author => (
         <li key={author.id}>
           <Link to={`/authors/${author.id}`}>{author.family_name}, {author.first_name}</Link>
+          <span> ({formatDate(author.birth_date)} - {formatDate(author.death_date)})</span>
         </li>
       ))}
       </ul>
