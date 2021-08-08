@@ -16,8 +16,8 @@ const Authors = () => {
       {loading && 'Loading...'}
       <ul>
       {data.map(author => (
-        <li key={author.id}>
-          <Link to={`/authors/${author.id}`}>{author.family_name}, {author.first_name}</Link>
+        <li key={author.ID}>
+          <Link to={`/authors/${author.ID}`}>{author.family_name}, {author.first_name}</Link>
           <span> ({formatDate(author.birth_date)} - {formatDate(author.death_date)})</span>
         </li>
       ))}

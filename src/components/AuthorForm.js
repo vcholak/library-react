@@ -1,6 +1,7 @@
 import useFetch from 'use-http';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toISOStr } from './utils';
 
 const AuthorForm = () => {
 
@@ -58,13 +59,6 @@ const AuthorForm = () => {
       );
     }
   };
-
-  const toISOStr = (dateStr) => {
-    const date = new Date(dateStr);
-    //RFC 3339 format
-    const formatted = date.toISOString();
-    return formatted;
-  }
 
   return (
     <div>

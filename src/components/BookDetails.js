@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { formatDate } from './utils';
 
-const AuthorDetails = () => {
+const BookDetails = () => {
   // @ts-ignore
   const { id } = useParams();
 
-  const API_URL = `http://localhost:8080/api/authors/${id}`;
+  const API_URL = `http://localhost:8080/api/books/${id}`;
   const options = {}
 
-  const {error, data: author = {} } = useFetch(API_URL, options, []);
+  const {error, data: book = {} } = useFetch(API_URL, options, []);
 
   // @ts-ignore
   const {response, get, err, books_data = [] } = useFetch('http://localhost:8080/api/books', options, []);
@@ -27,7 +27,7 @@ const AuthorDetails = () => {
   }
 
   const errorText = (
-    <p>Error while retrieving an author: {error?.message}</p>
+    <p>Error while retrieving a book: {error?.message}</p>
   );
 
   const noBooks = () => {
@@ -45,8 +45,8 @@ const AuthorDetails = () => {
     <div>
       {error ? errorText : (
       <>
-      <h1>Author: {author.family_name}, {author.first_name}</h1>
-      <p> ({formatDate(author.birth_date)} - {formatDate(author.death_date)})</p>
+      <h1>Book: {book.title}</h1>
+      <p> ()</p>
       <h4>Books</h4>
       <div style={divStyle}>
         <dl>
@@ -63,14 +63,14 @@ const AuthorDetails = () => {
       </div>
       <hr />
       <p>
-        <Link to={`/authors/delete/${author.ID}`}>Delete author</Link>
+        <Link to={`/books/delete/${book.ID}`}>Delete book</Link>
       </p>
       <p>
-        <Link to={`/authors/update/${author.ID}`}>Update author</Link>
+        <Link to={`/books/update/${book.ID}`}>Update book</Link>
       </p>
       </>)}
     </div>
   );
 }
 
-export default AuthorDetails;
+export default BookDetails;

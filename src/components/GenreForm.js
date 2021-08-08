@@ -16,13 +16,15 @@ const GenreForm = () => {
   };
 
   const handleSubmit = (event) => {
-    const data = {name: event.target.value};
-    post('/api/genres', data)
+    const payload = {
+      name: event.target.value
+    };
+    post('/api/genres', payload)
       .then(res => {
         if (res.message) {
           setError(res.message);
         } else {
-          setId(res.id);
+          setId(res.ID);
         }
       })
       .catch(err => setError(err.mesage));

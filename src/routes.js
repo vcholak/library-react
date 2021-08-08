@@ -8,6 +8,7 @@ import AuthorForm from "./components/AuthorForm";
 import BookForm from "./components/BookForm";
 import BookInstanceForm from "./components/BookInstanceForm";
 import AuthorDetails from "./components/AuthorDetails";
+import BookDetails from "./components/BookDetails";
 
 const routes = [
   {
@@ -69,6 +70,11 @@ const routes = [
     path: "/authors/:id",
     exact: true,
     component: AuthorDetails
+  },
+  {
+    path: "/books/:id",
+    exact: true,
+    component: BookDetails
   },
 ];
 

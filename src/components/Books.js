@@ -1,4 +1,5 @@
 import useFetch from 'use-http';
+import { Link } from 'react-router-dom';
 
 const Books = () => {
 
@@ -8,11 +9,17 @@ const Books = () => {
   const { loading, error, data = [] } = useFetch(API_URL, options, []);
   return (
     <>
+      <h1>Book List</h1>
       {error && 'Error while fetching all books!'}
       {loading && 'Loading...'}
+      <ul>
       {data.map(book => (
-        <div key={book.id}>{book.title}</div>
+        <li key={book.ID}>
+          <Link to={`/books/${book.ID}`}>{book.title}</Link>
+          <span> ({book.Author.family_name}, {book.Author.first_name})</span>
+        </li>
       ))}
+      </ul>
     </>
   );
 }
