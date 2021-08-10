@@ -18,25 +18,36 @@ const BookForm = () => {
   // @ts-ignore
   const { get } = useFetch('http://localhost:8080/api');
 
-  useEffect(() => { loadAuthors() }) // componentDidMount
+  useEffect( () => {
+     loadAuthors();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []) // componentDidMount
 
   // @ts-ignore
   async function loadAuthors() {
     const resp = await get('/authors');
-    if (resp.ok) setAuthors(authors)
-    else if (resp.message) setError('Authors: ' + resp.message);
+
+    if (resp.message) {
+      setError('Authors: ' + resp.message);
+    } else {
+      setAuthors(resp);
+    }
   }
 
-  // @ts-ignore
-  // const {resp, get2} = useFetch('http://localhost:8080/api/gernes');
-
-  useEffect(() => { loadGernes() }) // componentDidMount
+  useEffect(() => {
+    loadGernes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // componentDidMount
 
   // @ts-ignore
   async function loadGernes() {
     const resp = await get('/genres');
-    if (resp.ok) setGenres(genres)
-    else if (resp.message) setError('Genres: ' + resp.message);
+
+    if (resp.message) {
+      setError('Genres: ' + resp.message);
+    } else {
+      setGenres(resp);
+    }
   }
 
   const API_URL = "http://localhost:8080";
@@ -46,10 +57,11 @@ const BookForm = () => {
     const payload = {
       title,
       summary,
-      isbn,
-      author_id: authorId,
-      genre_id: genreId
+      isbn: isbn,
+      author_id: parseInt(authorId),
+      genre_id: parseInt(genreId)
     };
+    alert(JSON.stringify(payload));
     post("/api/books", payload)
     .then(res => {
       if (res.message) {
@@ -85,8 +97,7 @@ const BookForm = () => {
         </label>
         <label>
           Author:
-          <select name="authorId" required={true} value={authorId} onChange={
-            e => setAuthorId(e.target.value)}>
+          <select required={true} value={authorId} onChange={e => setAuthorId(e.target.value)}>
           {authors.map(author => (
               <option key={author.ID} value={author.ID}>
                 {author.family_name}, {author.first_name}
@@ -103,12 +114,11 @@ const BookForm = () => {
           <input type="text" name="isbn" required={true} value={isbn} onChange={e => setIsbn(e.target.value)}></input>
         </label>
         <label>
-          Gerne:
-          <select name="gerneId" required={true} value={genreId} onChange={e =>
-            setGenreId(e.target.value)}>
-          {genres.map(gerne => (
-              <option key={gerne.ID} value={gerne.ID}>
-                {gerne.name}
+          Genre:
+          <select required={true} value={genreId} onChange={e => setGenreId(e.target.value)}>
+          {genres.map(genre => (
+              <option key={genre.ID} value={genre.ID}>
+                {genre.name}
               </option>
           ))}
           </select>

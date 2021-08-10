@@ -16,7 +16,7 @@ const Books = () => {
       {data.map(book => (
         <li key={book.ID}>
           <Link to={`/books/${book.ID}`}>{book.title}</Link>
-          <span> ({book.Author.family_name}, {book.Author.first_name})</span>
+          <span> ({book.author.family_name}, {book.author.first_name})</span>
         </li>
       ))}
       </ul>
