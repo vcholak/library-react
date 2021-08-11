@@ -18,6 +18,8 @@ const BookForm = () => {
   // @ts-ignore
   const { get } = useFetch('http://localhost:8080/api');
 
+  // Provide an empty array as the second argument to the effect hook, as this will stop it
+  // from activating on component updates but only when the component is mounted
   useEffect( () => {
      loadAuthors();
    // eslint-disable-next-line react-hooks/exhaustive-deps
