@@ -38,8 +38,8 @@ const AuthorDetails = () => {
         <dl>
           {author.books && author.books.map(book => (
             <>
-              <dt key={book.ID}>
-                <Link to={`/books/${book.ID}`}>{book.title}</Link>
+              <dt key={book.id}>
+                <Link to={`/books/${book.id}`}>{book.title}</Link>
               </dt>
               <dd>{book.summary}</dd>
             </>
@@ -49,10 +49,10 @@ const AuthorDetails = () => {
       </div>
       <hr />
       <p>
-        <Link to={`/authors/delete/${author.ID}`}>Delete author</Link>
+        <Link to={`/authors/delete/${author.id}`}>Delete author</Link>
       </p>
       <p>
-        <Link to={`/authors/update/${author.ID}`}>Update author</Link>
+        <Link to={`/authors/update/${author.id}`}>Update author</Link>
       </p>
       </>)}
     </div>

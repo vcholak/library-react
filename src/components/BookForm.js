@@ -101,7 +101,7 @@ const BookForm = () => {
           Author:
           <select required={true} value={authorId} onChange={e => setAuthorId(e.target.value)}>
           {authors.map(author => (
-              <option key={author.ID} value={author.ID}>
+              <option key={author.id} value={author.id}>
                 {author.family_name}, {author.first_name}
               </option>
           ))}
@@ -119,7 +119,7 @@ const BookForm = () => {
           Genre:
           <select required={true} value={genreId} onChange={e => setGenreId(e.target.value)}>
           {genres.map(genre => (
-              <option key={genre.ID} value={genre.ID}>
+              <option key={genre.id} value={genre.id}>
                 {genre.name}
               </option>
           ))}

@@ -48,8 +48,8 @@ const GenreDetails = () => {
         <dl>
           {books.map(book => (
             <>
-              <dt key={book.ID}>
-                <Link to={`/books/${book.ID}`}>{book.title}</Link>
+              <dt key={book.id}>
+                <Link to={`/books/${book.id}`}>{book.title}</Link>
               </dt>
               <dd>{book.summary}</dd>
             </>
@@ -59,10 +59,10 @@ const GenreDetails = () => {
       </div>
       <hr />
       <p>
-        <Link to={`/genres/delete/${data.ID}`}>Delete genre</Link>
+        <Link to={`/genres/delete/${data.id}`}>Delete genre</Link>
       </p>
       <p>
-        <Link to={`/genres/update/${data.ID}`}>Update genre</Link>
+        <Link to={`/genres/update/${data.id}`}>Update genre</Link>
       </p>
       </>
       )}

@@ -51,7 +51,7 @@ const Home = () => {
       <ul>
         <li><strong>Books:</strong> { books } </li>
         <li><strong>Copies:</strong> { copies }</li>
-        <li><strong>Copies available:</strong> { availableCopies }</li>
+        <li><strong>Copies Available:</strong> { availableCopies }</li>
         <li><strong>Authors:</strong> { authors }</li>
         <li><strong>Genres:</strong><span> { genres }</span></li>
       </ul>
@@ -59,7 +59,7 @@ const Home = () => {
   );
 
   let content;
-  if (books == null || authors == null || genres == null || copies == null || availableCopies == null) {
+  if (books === null || authors === null || genres === null || copies === null || availableCopies === null) {
     content =  Loading;
   } else {
     content = RecordsInfo;

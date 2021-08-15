@@ -24,7 +24,7 @@ const GenreForm = () => {
         if (res.message) {
           setError(res.message);
         } else {
-          setId(res.ID);
+          setId(res.id);
         }
       })
       .catch(err => setError(err.mesage));
