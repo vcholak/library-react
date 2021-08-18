@@ -4,20 +4,16 @@ import { Link } from 'react-router-dom';
 
 const GenreForm = () => {
 
-  const [genre, setGenre] = useState('');
+  const [genre, setGenre] = useState(null);
   const [err, setError] = useState(null);
   const [id, setId] = useState(null);
 
   const API_URL = "http://localhost:8080";
   const { post } = useFetch(API_URL);
 
-  const handleChange = (event) => {
-    setGenre(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     const payload = {
-      name: event.target.value
+      name: genre
     };
     post('/api/genres', payload)
       .then(res => {
@@ -51,7 +47,7 @@ const GenreForm = () => {
         <div className="form-group">
         <label>
           Genre:
-          <input type="text" name="name" className="form-control" required={true} value={genre} onChange={handleChange}></input>
+          <input type="text" name="name" className="form-control" required={true} value={genre} onChange={e => setGenre(e.target.value)}></input>
         </label>
         </div>
         <input type="submit" value="Create" className="btn btn-primary" />
