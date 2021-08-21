@@ -8,14 +8,14 @@ const GenreForm = () => {
   const [err, setError] = useState(null);
   const [id, setId] = useState(null);
 
-  const API_URL = "http://localhost:8080";
+  const API_URL = "http://localhost:8080/api";
   const { post } = useFetch(API_URL);
 
   const handleSubmit = (event) => {
     const payload = {
       name: genre
     };
-    post('/api/genres', payload)
+    post('/genres', payload)
       .then(res => {
         if (res.message) {
           setError(res.message);

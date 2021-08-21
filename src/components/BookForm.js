@@ -15,15 +15,17 @@ const BookForm = () => {
   const [authors, setAuthors] = useState([]);
   const [genres, setGenres] = useState([]);
 
+  const API_URL = "http://localhost:8080/api";
+
   // @ts-ignore
-  const { get } = useFetch('http://localhost:8080/api');
+  const { get, post } = useFetch(API_URL);
 
   // Provide an empty array as the second argument to the effect hook, as this will stop it
   // from activating on component updates but only when the component is mounted
   useEffect( () => {
      loadAuthors();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []) // componentDidMount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // componentDidMount
 
   // @ts-ignore
   async function loadAuthors() {
@@ -52,9 +54,6 @@ const BookForm = () => {
     }
   }
 
-  const API_URL = "http://localhost:8080";
-  const { post } = useFetch(API_URL);
-
   const handleSubmit = (event) => {
     const payload = {
       title,
@@ -64,7 +63,8 @@ const BookForm = () => {
       genre_id: parseInt(genreId)
     };
     alert(JSON.stringify(payload));
-    post("/api/books", payload)
+
+    post("/books", payload)
     .then(res => {
       if (res.message) {
         setError(res.message);

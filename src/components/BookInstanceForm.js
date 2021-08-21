@@ -1,26 +1,91 @@
 import useFetch from 'use-http';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { toISOStr } from './utils';
 
 const BookInstanceForm = () => {
 
-  const [genre, setGenre] = useState('');
+  const [bookId, setBookId] = useState(null);
+  const [books, setBooks] = useState([]);
+  const [imprint, setImprint] = useState(null);
+  const [dueBack, setDueBack] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [statuses, setStatuses] = useState([]);
   const [error, setError] = useState(null);
   const [id, setId] = useState(null);
 
-  const API_URL = "http://localhost:8080/api/copies";
-  const options = {}
-  const request = useFetch(API_URL, options, []);
+  const API_URL = "http://localhost:8080/api";
 
-  const handleChange = (event) => {
-    setGenre(event.target.value);
+  // @ts-ignore
+  const { get, post } = useFetch(API_URL);
+
+  // Provide an empty array as the second argument to the effect hook, as this will stop it
+  // from activating on component updates but only when the component is mounted
+  useEffect( () => {
+    loadBooks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // componentDidMount
+
+  // @ts-ignore
+  async function loadBooks() {
+    const resp = await get('/books');
+
+    if (resp.message) {
+      setError('Books: ' + resp.message);
+    } else {
+      setBooks(resp);
+    }
+  }
+
+  useEffect( () => {
+     loadStatuses();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []) // componentDidMount
+
+  // @ts-ignore
+  async function loadStatuses() {
+    const resp = await get('/copies?statuses');
+
+    if (resp.message) {
+      setError('Load statuses: ' + resp.message);
+    } else {
+      setStatuses(resp);
+    }
   }
 
   const handleSubmit = (event) => {
-    request.post({"name": event.target.value})
-      .then(res => setId(res.id))
+    const payload = {
+      book_id: parseInt(bookId),
+      imprint,
+      due_back: toISOStr(dueBack),
+      status
+    };
+    alert(JSON.stringify(payload));
+
+    post('/authors', payload)
+      .then(res => {
+        if (res.message) {
+          setError(res.message);
+        } else {
+          setId(res.id);
+        }
+      })
       .catch(err => setError(err.mesage));
     event.preventDefault();
   }
+
+  const result = () => {
+    if (error) {
+      return <p>{error}</p>;
+    } else if(id) {
+      return (
+        <p>
+          Created a new book istance:
+          <Link to={`/copies/${id}`}>{`${imprint}`}</Link>
+        </p>
+      );
+    }
+  };
 
   return (
     <div>
@@ -28,25 +93,36 @@ const BookInstanceForm = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Book:
-          <input type="select" name="name" required={true} value={genre} onChange={handleChange}></input>
+          <select required={true} value={bookId} onChange={e => setBookId(e.target.value)}>
+          {books.map(book => (
+              <option key={book.id} value={book.id}>
+                {book.title}
+              </option>
+          ))}
+          </select>
         </label>
         <label>
           Imprint:
-          <input type="text" name="name" required={true} value={genre} onChange={handleChange}></input>
+          <input type="text" name="imprint" required={true} value={imprint} onChange={e => setImprint(e.target.value)}></input>
         </label>
         <label>
           Date when book available:
-          <input type="text" name="name" required={true} value={genre} onChange={handleChange}></input>
+          <input type="date" name="dueBack" className="form-control" required={true} value={dueBack} onChange={e => setDueBack(e.target.value)} />
         </label>
         <label>
           Status:
-          <input type="select" name="name" required={true} value={genre} onChange={handleChange}></input>
+          <select required={true} value={status} onChange={e => setStatus(e.target.value)}>
+          {statuses.map(status => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+          ))}
+          </select>
         </label>
         <input type="submit" value="Create" />
       </form>
       <div>
-        {error}
-        {id && 'Created a new book istance: TODO add a link to copy detail: ' + id}
+        {result()}
       </div>
     </div>
   )
