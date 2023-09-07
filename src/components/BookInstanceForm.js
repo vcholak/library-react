@@ -3,6 +3,15 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toISOStr } from './utils';
 
+const statuses = [
+	"NotAvailable",
+	"OnOrder",
+	"InTransit",
+	"OnHold",
+	"OnLoan",
+	"InLibrary"
+];
+
 const BookInstanceForm = () => {
 
   const [bookId, setBookId] = useState(null);
@@ -10,7 +19,6 @@ const BookInstanceForm = () => {
   const [imprint, setImprint] = useState(null);
   const [dueBack, setDueBack] = useState(null);
   const [status, setStatus] = useState(null);
-  const [statuses, setStatuses] = useState([]);
   const [error, setError] = useState(null);
   const [id, setId] = useState(null);
 
@@ -34,22 +42,6 @@ const BookInstanceForm = () => {
       setError('Books: ' + resp.message);
     } else {
       setBooks(resp);
-    }
-  }
-
-  useEffect( () => {
-     loadStatuses();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []) // componentDidMount
-
-  // @ts-ignore
-  async function loadStatuses() {
-    const resp = await get('/copies?statuses');
-
-    if (resp.message) {
-      setError('Load statuses: ' + resp.message);
-    } else {
-      setStatuses(resp);
     }
   }
 
@@ -112,8 +104,8 @@ const BookInstanceForm = () => {
         <label>
           Status:
           <select required={true} value={status} onChange={e => setStatus(e.target.value)}>
-          {statuses.map(status => (
-              <option key={status} value={status}>
+          {statuses.map((status, index) => (
+              <option key={index} value={index}>
                 {status}
               </option>
           ))}
