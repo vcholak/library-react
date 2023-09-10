@@ -54,7 +54,7 @@ const BookInstanceForm = () => {
     };
     alert(JSON.stringify(payload));
 
-    post('/authors', payload)
+    post('/copies', payload)
       .then(res => {
         if (res.message) {
           setError(res.message);
